@@ -43,6 +43,8 @@ If you agree that this is a good idea, then you should give it a shot and implem
 Notes and resources
 -------------------
 
+There are some branches in this repository that might be helpful for you to test your changes on.
+
 Here are some helpful sections of the documentation for the GitHub API:
 
 - [Overview](https://developer.github.com/v3/)
