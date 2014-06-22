@@ -5,19 +5,18 @@ function Project(id, type, name, lastActivity) {
     this.lastActivity = lastActivity;
 }
 
-$(function() {
-    // The list of all projects currently in the system.
-    // (Feel free to imagine this came from a database somewhere on page load.)
-    var CURRENT_PROJECTS = [
-        new Project(0, "Training", "Patrick's experimental branch", new Date(2014, 6, 17, 13, 5, 842)),
-        new Project(1, "Testing", "Blind test of autosuggest model", new Date(2014, 6, 21, 18, 44, 229))
-    ];
+// The list of all projects currently in the system.
+// (Feel free to imagine this came from a database somewhere on page load.)
+var CURRENT_PROJECTS = [
+    new Project(0, "Training", "Patrick's experimental branch", new Date(2014, 6, 17, 13, 5, 842)),
+    new Project(1, "Testing", "Blind test of autosuggest model", new Date(2014, 6, 21, 18, 44, 229))
+];
 
-    // The current maximum ID, so we know how to allocate an ID for a new project.
-    // (Yes, the database should be taking care of this, too.)
-    var MAX_ID = Math.max.apply(null, $.map(CURRENT_PROJECTS, function(pj) { return pj.id; }));
+// The current maximum ID, so we know how to allocate an ID for a new project.
+// (Yes, the database should be taking care of this, too.)
+var MAX_ID = Math.max.apply(null, $.map(CURRENT_PROJECTS, function(pj) { return pj.id; }));
 
-    // Loads a list of projects into the UI.
+$(function(){
     var loadProjects = function($container, projects) {
         $.fn.append.apply($container, $.map(projects, function(pj) {
             return $("<tr>").append(
