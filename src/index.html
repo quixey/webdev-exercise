@@ -2,15 +2,40 @@
 <html>
   <head>
     <title>Project overview</title>
+    <meta charset="utf-8">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
   </head>
   <body>
     <div class="container">
-      <h1>Testing</h1>
-      <p class="lead">Nothing to see here yet.</p>
+      <h1>All active projects</h1>
+      <table id="project-list" class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Type</th>
+            <th>Name</th>
+            <th>Last activity</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+      <h1>Add new project</h1>
+      <form id="add-project-form">
+        <div class="form-group">
+          <label for="project-type">Project type</label>
+          <input type="text" class="form-control" id="project-type">
+        </div>
+        <div class="form-group">
+          <label for="project-name">Project name</label>
+          <input type="text" class="form-control" id="project-name">
+        </div>
+        <input type="submit" class="btn btn-default" value="Add project">
+      </form>
     </div>
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script src="projects.js"></script>
   </body>
 </html>
