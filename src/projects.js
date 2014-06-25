@@ -7,8 +7,8 @@ function Project(id, type, name, lastActivity, branchName, needsUpdate) {
     this.update = needsUpdate;
 }
 
-var USER = "Deephan"; // Owner name of the github repo
-var MASTER_REPO = "RollingWindow"; // Name of the master repository
+var USER; // Owner name of the github repo
+var MASTER_REPO; // Name of the master branch
 
 // The list of all projects currently in the system.
 // (Feel free to imagine this came from a database somewhere on page load.)
