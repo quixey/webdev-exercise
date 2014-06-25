@@ -50,7 +50,7 @@ $(function(){
 
     var needsUpdate = function(branchName) {
         var masterURL = 'https://api.github.com/repos/'+USER+'/'+MASTER_REPO;
-        var branchURL = 'https://api.github.com/repos/'+USER+'/'+MASTER_REPO;//+'/'+branchName;
+        var branchURL = 'https://api.github.com/repos/'+USER+'/'+MASTER_REPO+'/'+branchName;
         var update = false;
         // Execute the ajax requests on the master branch url and the new branch's url
         // Process the response object. If the last updated date of the master branch precedes 
