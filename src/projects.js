@@ -37,14 +37,20 @@ $(function(){
 
     // Creates a new project based on the user input in the form.
     var createProject = function($form) {
-        return new Project(
-            MAX_ID + 1,
-            $form.find("#project-type").val(),
-            $form.find("#project-name").val(),
-            new Date(),
-            $form.find("#branch-name").val() ? $form.find("#branch-name").val() : $form.find("#project-type").val(),
-            needsUpdate($form.find("#project-name").val()) // TO DO: Make this call deferred. At present this field is not getting the correct value.
-        );
+        var def = $.Deferred();
+        var project;
+        $.when(needsUpdate($form.find("#project-name").val())).then(function(result){
+            project = new Project(
+                MAX_ID + 1,
+                $form.find("#project-type").val(),
+                $form.find("#project-name").val(),
+                new Date(),
+                $form.find("#branch-name").val() ? $form.find("#branch-name").val() : $form.find("#project-type").val(),
+                result
+            );
+            def.resolve(project);
+        });
+        return def.promise();
     };
 
 
@@ -52,15 +58,17 @@ $(function(){
         var masterURL = 'https://api.github.com/repos/'+USER+'/'+MASTER_REPO;
         var branchURL = 'https://api.github.com/repos/'+USER+'/'+MASTER_REPO+'/'+branchName;
         var update = false;
+        var defer = $.Deferred();
         // Execute the ajax requests on the master branch url and the new branch's url
         // Process the response object. If the last updated date of the master branch precedes 
         // the creation date of the new branch then no update is required for the new branch.
-        $.when( $.ajax( masterURL ), $.ajax( branchURL ) ).done(function( response1, response2 ) {
+        $.when($.ajax( masterURL ), $.ajax( branchURL ) ).then(function( response1, response2) {
               var master_updated_date = new Date(response1[0].updated_at);
               var branch_created_date = new Date(response2[0].created_at);
               update = (branch_created_date < master_updated_date) ? true : false;
+              defer.resolve(update);
         });
-        return update;
+        return defer.promise();
     };
 
     // Clears the data in the form so that it's easy to enter a new project.
@@ -76,11 +84,13 @@ $(function(){
 
     $("#add-project-form").submit(function(e) {
         var $form = $(this);
-        pj = createProject($form);
-        MAX_ID = pj.id;
-        CURRENT_PROJECTS.push(pj);
-        loadProjects($projectTable, [pj]);
-        resetForm($form);
+        var defer = $.Deferred();
         e.preventDefault();
+        $.when(createProject($form)).then(function(pj, e){
+            MAX_ID = pj.id;
+            CURRENT_PROJECTS.push(pj);
+            loadProjects($projectTable, [pj]);
+            resetForm($form);
+        });
     });
 });
