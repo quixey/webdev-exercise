@@ -24,7 +24,7 @@ Serving HTTP on 0.0.0.0 port 8000 ...
 
 and then visiting `http://localhost:8000` in your browser.
 
-This tool is built to be used by internal testers who work on "projects" set up by engineers. It shows a list of all the current projects, and has a little UI for adding new projects to the list. Each project has an ID, a name, a type (there are only a few different project types), and an activity date. (Realistically, it might load this information from a database, but for the purposes of this exercise the 'database' is just an array in `projects.js`.)
+This tool is built to keep track of "projects" &ndash; experiments done by search engineers trying to improve search relevance. It shows a list of all the current projects, and has a little UI for adding new projects to the list. Each project has an ID, a name, a type (there are only a few different project types), and an activity date. (Realistically, it might load this information from a database, but for the purposes of this exercise the 'database' is just an array in `projects.js`.)
 
 The problem
 -----------
