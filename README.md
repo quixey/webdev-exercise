@@ -2,6 +2,7 @@ Quixey web development exercise
 ===============================
 
 * [About this repo](#about-this-repo)
+* [The problem](#the-problem)
 * [Your task](#your-task)
 * [Notes and resources](#notes-and-resources)
 * [Afterward](#afterward)
@@ -23,27 +24,37 @@ Serving HTTP on 0.0.0.0 port 8000 ...
 
 and then visiting `http://localhost:8000` in your browser.
 
-This tool is built to be used by internal testers at Quixey who work on projects set up by search engineers here. It shows a list of all the current projects, and has a little UI for adding new projects to the list. Each project has an ID, a name, a type (there are only a few different project types), and an activity date. (Realistically, it might load this information from a database, but for the purposes of this exercise the 'database' is just an array in `projects.js`.)
+This tool is built to keep track of "projects" &ndash; experiments done by search engineers trying to improve search relevance. It shows a list of all the current projects, and has a little UI for adding new projects to the list. Each project has an ID, a name, a type (there are only a few different project types), and an activity date. (Realistically, it might load this information from a database, but for the purposes of this exercise the 'database' is just an array in `projects.js`.)
+
+The problem
+-----------
+
+The engineers collaborate via GitHub, and usually their projects are associated with a specific commit or feature branch in their repository. They say that things like this happen:
+
+1. Engineer Alice makes branch "search-experiment"
+2. Alice sets up a project for "search-experiment" using this tool
+3. Engineer Bob makes further changes in master
+4. Testers start working on the "search-experiment" project
+
+(If you don't know what I mean by this, you might want to review how [git branching](http://rypress.com/tutorials/git/branches-2.html) works.)
+
+Alice is worried when this happens, because it means the testers might not be testing the latest code. She wishes that the project administration tool would let her know that her branch was outdated with respect to master, so that she could merge or rebase it to make it up-to-date.
 
 Your task
 ---------
 
-You just received a feature request from some search engineers which you would like to implement. The search engineers collaborate via GitHub, and usually their projects are associated with a specific commit or topic branch in their repository.
+Alice thinks you should make the tool work like this:
 
-However, sometimes the projects last a long time, and the branch that they are based on gets out of date with respect to master. (If you don't know what I mean by this, you might want to review how [git branching](http://rypress.com/tutorials/git/branches-2.html) works.) Sometimes, this is OK, but other times, this can mean that the testers are not testing the latest code, and the engineer in charge of the project wants to notice it so that they can rebase their branch on master and update the test deployment; otherwise the results might be inaccurate.
-
-The search engineering team thinks that if you could show them in the project tool when their branch is out-of-date, then they would make many less errors during testing. One of them suggested that a good way to do it might be like this:
-
-- Allow them to specify a commit or branch or tag that goes along with a particular project.
+- Allow her to specify a commit or branch or tag that goes along with a particular project.
 - Talk to the GitHub API to figure out whether or not each project is up-to-date with master.
-- Add a UI element to the project list that helps them see which projects are OK and which need updating.
+- Add a UI element to the project list that helps her see which projects are OK and which need updating.
 
 If you agree that this is a good idea, then you should give it a shot and implement it. (If you don't, then prepare to argue for your better idea!)
 
 Notes and resources
 -------------------
 
-There are some branches in this repository that might be helpful for you to test your changes on.
+**There are some branches in this repository that you can test your changes on.** There are some outdated and up-to-date branches with respect to the branch called "baseline-branch". Your code should be able to accurately report the status of these branches.
 
 Here are some helpful sections of the documentation for the GitHub API:
 
