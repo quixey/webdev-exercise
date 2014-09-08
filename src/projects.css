@@ -1,3 +1,31 @@
 .main-content {
     padding-top: 60px; /* make room for the fixed header */
 }
+
+.updated-true,
+.updated-false {
+  display: inline-block;
+  padding: 2px 4px;
+  border-radius: 4px;
+}
+
+.updated-false {
+  color: #88151f;
+  background: #f19097;
+  border: 1px solid #f12637;
+}
+
+.updated-false:before {
+  content: "Out of date";
+}
+
+
+.updated-true {
+  color: #215f13;
+  background: #a3f14a;
+  border: 1px solid #41b625;
+}
+
+.updated-true:before {
+  content: "Updated";
+}
