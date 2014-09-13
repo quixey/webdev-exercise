@@ -9,3 +9,19 @@
 .green{
   color: green;
 }
+
+#project-base-line{
+  width: 300px;
+}
+
+.form-group-1{
+  display: inline-block;
+}
+
+#update{
+  float: right;
+}
+
+.base-update{
+  display: inline-block;
+}

@@ -20,20 +20,20 @@
 
     <div class="container main-content">
       <h2>All active projects</h2>
-
+      <br>
       <form id="select-base-form">
-        <div class="form-group">
-          <input type="text" class="form-control" id="project-base-line" list="base-list" placeholder="Choose a base" autofocus>
+        <div class="form-group-1">
+          <input type="text" class="form-control" id="project-base-line" list="base-list" placeholder="Choose a base to compare with..." autofocus>
           <datalist id="base-list">
             <option>baseline-branch</option>
             <option>master</option>
           </datalist>
         </div>
-        <button id="update">
-          Update information
-        </button>
+        <div class="form-group-1">
+          <input type="submit" class="btn btn-default" value="Choose">
+        </div>
       </form>
-
+      <br>
       <table id="project-list" class="table">
         <thead>
           <tr>
@@ -51,7 +51,8 @@
       </table>
       <hr>
       <div>
-        <button id="update">
+        You are comparing to: <a id="base">non selected</a>
+        <button id="update" class="btn btn-default base-update" >
           Update information
         </button>
       </div>
@@ -76,7 +77,7 @@
           <input type="text" class="form-control" id="project-reference-type" list="reference-type-list" autofocus>
           <datalist id="reference-type-list">
             <option>Branch</option>
-            <option>Commit</option>
+            <option>SHA</option>
             <option>Tag</option>
           </datalist>
         </div>

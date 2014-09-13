@@ -34,7 +34,7 @@ $(function(){
         }));
     };
 
-var updateProjects = function($container, projects) {
+    var updateProjects = function($container, projects) {
         $.fn.append.apply($container, $.map(projects, function(pj) {
             pj.status = getInfo(pj.reference)
             return $("<tr>").append(
@@ -51,7 +51,7 @@ var updateProjects = function($container, projects) {
 
 
     var getInfo = function(project_branch_name) {
-        url = "https://api.github.com/repos/quixey/webdev-exercise/compare/baseline-branch..." + project_branch_name;
+        url = "https://api.github.com/repos/quixey/webdev-exercise/compare/" + base + "..." + project_branch_name;
         var request = null;
         request = new XMLHttpRequest();
         request.open("GET", url, false);
@@ -62,9 +62,7 @@ var updateProjects = function($container, projects) {
             return "";
         }
 
-        // return res.status
-
-        if(res.status === 'diverged'){
+        if(res.status === 'diverged' || res.status === 'behind'){
             return "Pull or rebase";
         }
         else{
@@ -83,7 +81,6 @@ var updateProjects = function($container, projects) {
             new Date(),
             getInfo($form.find("#project-reference").val())
         );
-        debugger;
     };
 
     // Clears the data in the form so that it's easy to enter a new project.
@@ -111,14 +108,8 @@ var updateProjects = function($container, projects) {
         changeFormat();
     });
 
-    $("#update").click(function(){
-        $("#tbody").empty();
-        updateProjects($projectTable, CURRENT_PROJECTS);
-        changeFormat();
-    });
-
     var changeFormat = function(){
-        $("table tr").each(function () {
+        $("table tr").each(function() {
         var status = $(this).children("td").eq(6).text()
             if(status === "Pull or rebase"){
             $(this).children("td").eq(6).addClass("red");
@@ -126,5 +117,19 @@ var updateProjects = function($container, projects) {
             $(this).children("td").eq(6).addClass("green");
             }
         });
-    }
+    };
+
+    $("#select-base-form").submit(function(e){
+        var $form = $(this);
+        base = $form.find("#project-base-line").val(),
+        $("#base").text(base)
+        e.preventDefault();
+    });
+
+    $("#update").click(function(){
+        $("#tbody").empty();
+        updateProjects($projectTable, CURRENT_PROJECTS);
+        changeFormat();
+    });
+
 });
