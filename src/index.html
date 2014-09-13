@@ -21,6 +21,19 @@
     <div class="container main-content">
       <h2>All active projects</h2>
 
+      <form id="select-base-form">
+        <div class="form-group">
+          <input type="text" class="form-control" id="project-base-line" list="base-list" placeholder="Choose a base" autofocus>
+          <datalist id="base-list">
+            <option>baseline-branch</option>
+            <option>master</option>
+          </datalist>
+        </div>
+        <button id="update">
+          Update information
+        </button>
+      </form>
+
       <table id="project-list" class="table">
         <thead>
           <tr>
