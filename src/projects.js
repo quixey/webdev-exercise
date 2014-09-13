@@ -1,7 +1,9 @@
-function Project(id, type, name, lastActivity, status) {
+function Project(id, type, name, referenceType, reference, lastActivity, status) {
     this.id = id;
     this.type = type;
     this.name = name;
+    this.referenceType = referenceType
+    this.reference = reference
     this.lastActivity = lastActivity;
     this.status = status;
 }
@@ -9,8 +11,8 @@ function Project(id, type, name, lastActivity, status) {
 // The list of all projects currently in the system.
 // (Feel free to imagine this came from a database somewhere on page load.)
 var CURRENT_PROJECTS = [
-    new Project(0, "Training", "Patrick's experimental branch", new Date(2014, 6, 17, 13, 5, 842), "testStatus"),
-    new Project(1, "Testing", "Blind test of autosuggest model", new Date(2014, 6, 21, 18, 44, 229), "testStatus")
+    new Project(0, "Training", "Patrick's experimental branch", "Branch", "search-experiment", new Date(2014, 6, 17, 13, 5, 842), "testStatus"),
+    new Project(1, "Testing", "Blind test of autosuggest model", "Branch", "search-experiment", new Date(2014, 6, 21, 18, 44, 229), "testStatus")
 ];
 
 // The current maximum ID, so we know how to allocate an ID for a new project.
@@ -24,6 +26,8 @@ $(function(){
                 $("<td>").text(pj.id),
                 $("<td>").text(pj.type),
                 $("<td>").text(pj.name),
+                $("<td>").text(pj.referenceType),
+                $("<td>").text(pj.reference),
                 $("<td>").text(pj.lastActivity.toString()),
                 $("<td>").text(pj.status)
             );
@@ -41,8 +45,8 @@ $(function(){
             alert("Invalid Branch Name");
             return "";
         }
-            
-        
+
+
         return res.status;
     }
     // Creates a new project based on the user input in the form.
@@ -51,8 +55,11 @@ $(function(){
             MAX_ID + 1,
             $form.find("#project-type").val(),
             $form.find("#project-name").val(),
+            $form.find("#project-reference-type").val(),
+            $form.find("#project-reference").val(),
             new Date(),
-            getInfo($form.find("#project-name").val())
+            "Update"
+            // getInfo($form.find("#project-name").val())
         );
     };
 
@@ -75,7 +82,7 @@ $(function(){
             loadProjects($projectTable, [pj]);
             resetForm($form);
             e.preventDefault();
-        } 
-        
+        }
+
     });
 });
