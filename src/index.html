@@ -20,14 +20,15 @@
 
     <div class="container main-content">
       <h2>All active projects</h2>
+
       <table id="project-list" class="table">
         <thead>
           <tr>
             <th>ID</th>
             <th>Type</th>
             <th>Name</th>
-            <th>Reference Type</th>
-            <th>Reference</th>
+            <th>GIT Ref Type</th>
+            <th>GIT Reference</th>
             <th>Last activity</th>
             <th>Status</th>
           </tr>
@@ -58,7 +59,7 @@
           <input type="text" class="form-control" id="project-name">
         </div>
         <div class="form-group">
-          <label for="project-reference-type">Reference Type</label>
+          <label for="project-reference-type">GIT Reference Type</label>
           <input type="text" class="form-control" id="project-reference-type" list="reference-type-list" autofocus>
           <datalist id="reference-type-list">
             <option>Branch</option>
@@ -67,7 +68,7 @@
           </datalist>
         </div>
         <div class="form-group">
-          <label for="project-reference">Reference</label>
+          <label for="project-reference">GIT Reference</label>
           <input type="text" class="form-control" id="project-reference" autofocus>
         </div>
         <div class="form-group">

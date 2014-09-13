@@ -62,8 +62,15 @@ var updateProjects = function($container, projects) {
             return "";
         }
 
+        // return res.status
 
-        return res.status;
+        if(res.status === 'diverged'){
+            return "Pull or rebase";
+        }
+        else{
+            return "Up to date or ahead"
+        }
+
     }
     // Creates a new project based on the user input in the form.
     var createProject = function($form) {
@@ -101,11 +108,23 @@ var updateProjects = function($container, projects) {
             resetForm($form);
             e.preventDefault();
         }
-
+        changeFormat();
     });
 
     $("#update").click(function(){
         $("#tbody").empty();
         updateProjects($projectTable, CURRENT_PROJECTS);
+        changeFormat();
     });
+
+    var changeFormat = function(){
+        $("table tr").each(function () {
+        var status = $(this).children("td").eq(6).text()
+            if(status === "Pull or rebase"){
+            $(this).children("td").eq(6).addClass("red");
+            }else{
+            $(this).children("td").eq(6).addClass("green");
+            }
+        });
+    }
 });

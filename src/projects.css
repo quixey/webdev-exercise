@@ -1,3 +1,11 @@
 .main-content {
     padding-top: 60px; /* make room for the fixed header */
 }
+
+.red{
+  color: red;
+}
+
+.green{
+  color: green;
+}
