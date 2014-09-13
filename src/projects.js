@@ -11,8 +11,8 @@ function Project(id, type, name, referenceType, reference, lastActivity, status)
 // The list of all projects currently in the system.
 // (Feel free to imagine this came from a database somewhere on page load.)
 var CURRENT_PROJECTS = [
-    new Project(0, "Training", "Patrick's experimental branch", "Branch", "search-experiment", new Date(2014, 6, 17, 13, 5, 842), "testStatus"),
-    new Project(1, "Testing", "Blind test of autosuggest model", "Branch", "search-experiment", new Date(2014, 6, 21, 18, 44, 229), "testStatus")
+    new Project(0, "Training", "Patrick's experimental branch", "Branch", "up-to-date-branch-1", new Date(2014, 6, 17, 13, 5, 842), "testStatus"),
+    new Project(1, "Testing", "Blind test of autosuggest model", "Branch", "up-to-date-branch-2", new Date(2014, 6, 21, 18, 44, 229), "testStatus")
 ];
 
 // The current maximum ID, so we know how to allocate an ID for a new project.
@@ -33,6 +33,22 @@ $(function(){
             );
         }));
     };
+
+var updateProjects = function($container, projects) {
+        $.fn.append.apply($container, $.map(projects, function(pj) {
+            pj.status = getInfo(pj.reference)
+            return $("<tr>").append(
+                $("<td>").text(pj.id),
+                $("<td>").text(pj.type),
+                $("<td>").text(pj.name),
+                $("<td>").text(pj.referenceType),
+                $("<td>").text(pj.reference),
+                $("<td>").text(pj.lastActivity.toString()),
+                $("<td>").text(pj.status)
+            );
+        }));
+    };
+
 
     var getInfo = function(project_branch_name) {
         url = "https://api.github.com/repos/quixey/webdev-exercise/compare/baseline-branch..." + project_branch_name;
@@ -58,9 +74,9 @@ $(function(){
             $form.find("#project-reference-type").val(),
             $form.find("#project-reference").val(),
             new Date(),
-            "Update"
-            // getInfo($form.find("#project-name").val())
+            getInfo($form.find("#project-reference").val())
         );
+        debugger;
     };
 
     // Clears the data in the form so that it's easy to enter a new project.
@@ -90,6 +106,6 @@ $(function(){
 
     $("#update").click(function(){
         $("#tbody").empty();
-        loadProjects($projectTable, CURRENT_PROJECTS);
+        updateProjects($projectTable, CURRENT_PROJECTS);
     });
 });
