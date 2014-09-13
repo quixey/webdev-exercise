@@ -1,4 +1,4 @@
-s// ** Added new fields referenceType and reference
+// ** Added new fields referenceType and modify
 function Project(id, type, name, referenceType, reference, lastActivity, status) {
     this.id = id;
     this.type = type;
@@ -13,8 +13,8 @@ function Project(id, type, name, referenceType, reference, lastActivity, status)
 // (Feel free to imagine this came from a database somewhere on page load.)
 // ** Added dummy data to hardcoded fields
 var CURRENT_PROJECTS = [
-    new Project(0, "Training", "Patrick's experimental branch", "Branch", "up-to-date-branch-1", new Date(2014, 6, 17, 13, 5, 842), "testStatus"),
-    new Project(1, "Testing", "Blind test of autosuggest model", "Branch", "up-to-date-branch-2", new Date(2014, 6, 21, 18, 44, 229), "testStatus")
+    new Project(0, "Training", "Patrick's experimental branch", "Branch", "up-to-date-branch-1", new Date(2014, 6, 17, 13, 5, 842), "Please update"),
+    new Project(1, "Testing", "Blind test of autosuggest model", "Branch", "up-to-date-branch-2", new Date(2014, 6, 21, 18, 44, 229), "Please update")
 ];
 
 // The current maximum ID, so we know how to allocate an ID for a new project.
@@ -67,7 +67,7 @@ $(function(){
         request.send(null);
         res = JSON.parse(request.responseText);
         if(res.message == "Not Found") {
-            alert("Invalid Branch Reference");
+            alert("Choose Base or Invalid Branch Reference");
             return "";
         }
 
