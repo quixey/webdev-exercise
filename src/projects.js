@@ -1,3 +1,4 @@
+s// ** Added new fields referenceType and reference
 function Project(id, type, name, referenceType, reference, lastActivity, status) {
     this.id = id;
     this.type = type;
@@ -10,6 +11,7 @@ function Project(id, type, name, referenceType, reference, lastActivity, status)
 
 // The list of all projects currently in the system.
 // (Feel free to imagine this came from a database somewhere on page load.)
+// ** Added dummy data to hardcoded fields
 var CURRENT_PROJECTS = [
     new Project(0, "Training", "Patrick's experimental branch", "Branch", "up-to-date-branch-1", new Date(2014, 6, 17, 13, 5, 842), "testStatus"),
     new Project(1, "Testing", "Blind test of autosuggest model", "Branch", "up-to-date-branch-2", new Date(2014, 6, 21, 18, 44, 229), "testStatus")
@@ -34,6 +36,8 @@ $(function(){
         }));
     };
 
+    // ** Updates the table information to check status when not
+    // adding new projects (this fuction can be merge and refactored with loadProjects)
     var updateProjects = function($container, projects) {
         $.fn.append.apply($container, $.map(projects, function(pj) {
             pj.status = getInfo(pj.reference)
@@ -49,7 +53,8 @@ $(function(){
         }));
     };
 
-
+    // ** Added if-else statement to more clear status text
+    // url was modified to support base changing feature
     var getInfo = function(project_branch_name) {
         url = "https://api.github.com/repos/quixey/webdev-exercise/compare/" + base + "..." + project_branch_name;
         var request = null;
@@ -71,6 +76,7 @@ $(function(){
 
     }
     // Creates a new project based on the user input in the form.
+    // ** Now pointing to reference instead of project-name
     var createProject = function($form) {
         return new Project(
             MAX_ID + 1,
@@ -84,6 +90,7 @@ $(function(){
     };
 
     // Clears the data in the form so that it's easy to enter a new project.
+    // Added new fields
     var resetForm = function($form) {
         $form.find("#project-type").val("");
         $form.find("#project-name").val("");
@@ -95,6 +102,7 @@ $(function(){
     var $projectTable = $("#project-list>tbody");
     loadProjects($projectTable, CURRENT_PROJECTS);
 
+    // ** Added the execution of changeFormat
     $("#add-project-form").submit(function(e) {
         var $form = $(this);
         pj = createProject($form);
@@ -108,6 +116,7 @@ $(function(){
         changeFormat();
     });
 
+    // ** Changes the color of status values to green or red
     var changeFormat = function(){
         $("table tr").each(function() {
         var status = $(this).children("td").eq(6).text()
@@ -119,6 +128,7 @@ $(function(){
         });
     };
 
+    // ** Select base to compare commits and defines variable base
     $("#select-base-form").submit(function(e){
         var $form = $(this);
         base = $form.find("#project-base-line").val(),
@@ -126,6 +136,7 @@ $(function(){
         e.preventDefault();
     });
 
+    // ** Updates the values of status of each project
     $("#update").click(function(){
         $("#tbody").empty();
         updateProjects($projectTable, CURRENT_PROJECTS);
