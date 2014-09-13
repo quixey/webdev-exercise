@@ -67,6 +67,8 @@ $(function(){
     var resetForm = function($form) {
         $form.find("#project-type").val("");
         $form.find("#project-name").val("");
+        $form.find("#project-reference-type").val(""),
+        $form.find("#project-reference").val(""),
         $form.find("input:first").focus();
     };
 
@@ -84,5 +86,10 @@ $(function(){
             e.preventDefault();
         }
 
+    });
+
+    $("#update").click(function(){
+        $("#tbody").empty();
+        loadProjects($projectTable, CURRENT_PROJECTS);
     });
 });

@@ -32,10 +32,16 @@
             <th>Status</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="tbody">
         </tbody>
       </table>
       <hr>
+      <div>
+        <button id="update">
+          Update information
+        </button>
+      </div>
+      <br>
       <h2>Add new project</h2>
       <form id="add-project-form">
         <div class="form-group">
@@ -62,7 +68,7 @@
         </div>
         <div class="form-group">
           <label for="project-reference">Reference</label>
-          <input type="text" class="form-control" id="project-reference">
+          <input type="text" class="form-control" id="project-reference" autofocus>
         </div>
         <div class="form-group">
           <input type="submit" class="btn btn-default" value="Add project">
