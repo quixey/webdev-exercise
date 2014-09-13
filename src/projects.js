@@ -55,6 +55,9 @@ $(function(){
 
     // ** Added if-else statement to more clear status text
     // url was modified to support base changing feature
+    // Accidentaly I forked from an other user not Quixey
+    // and this method was the only big diffence from the original brach.
+    // I didn't know until I was about to send the pull request.
     var getInfo = function(project_branch_name) {
         url = "https://api.github.com/repos/quixey/webdev-exercise/compare/" + base + "..." + project_branch_name;
         var request = null;
@@ -63,7 +66,7 @@ $(function(){
         request.send(null);
         res = JSON.parse(request.responseText);
         if(res.message == "Not Found") {
-            alert("Invalid Branch Name");
+            alert("Invalid Branch Reference");
             return "";
         }
 
