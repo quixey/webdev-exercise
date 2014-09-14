@@ -81,7 +81,6 @@ $(function(){
 
     }
     // Creates a new project based on the user input in the form.
-    // ** Now pointing to reference instead of project-name
     var createProject = function($form) {
         return new Project(
             MAX_ID + 1,
