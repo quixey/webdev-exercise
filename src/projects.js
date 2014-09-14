@@ -58,9 +58,10 @@ $(function(){
     // Accidentally I forked the repo from an other user not Quixey
     // and this function was the only big difference from the original branch.
     // I didn't know until I was about to send the pull request.
+    // I could have written something similar using this documentation https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest
 
-    var getInfo = function(project_branch_name) {
-        url = "https://api.github.com/repos/quixey/webdev-exercise/compare/" + base + "..." + project_branch_name;
+    var getInfo = function(project_branch_reference) {
+        url = "https://api.github.com/repos/quixey/webdev-exercise/compare/" + base + "..." + project_branch_reference;
         var request = null;
         request = new XMLHttpRequest();
         request.open("GET", url, false);
