@@ -20,19 +20,55 @@
 
     <div class="container main-content">
       <h2>All active projects</h2>
+      <br>
+
+      <!-- Base to compare selector -->
+      <!-- New feature -->
+      <form id="select-base-form">
+        <div class="form-group-1">
+          <input type="text" class="form-control" id="project-base-line" list="base-list" placeholder="Choose a base to compare with..." autofocus>
+          <datalist id="base-list">
+            <option>baseline-branch</option>
+            <option>master</option>
+          </datalist>
+        </div>
+        <div class="form-group-1">
+          <input type="submit" class="btn btn-default" value="Choose">
+        </div>
+      </form>
+      <br>
+
+      <!-- Main table -->
+      <!-- added columns -->
       <table id="project-list" class="table">
         <thead>
           <tr>
             <th>ID</th>
             <th>Type</th>
             <th>Name</th>
+            <th>GIT Ref Type</th>
+            <th>GIT Reference</th>
             <th>Last activity</th>
+            <th>Status</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="tbody">
         </tbody>
       </table>
       <hr>
+
+      <!-- Base checker and update info button -->
+      <!-- New feature -->
+      <div>
+        You are comparing to: <a id="base">non selected</a>
+        <button id="update" class="btn btn-default base-update" >
+          Update information
+        </button>
+      </div>
+      <br>
+
+      <!-- New project form -->
+      <!-- added git reference type and reference input -->
       <h2>Add new project</h2>
       <form id="add-project-form">
         <div class="form-group">
@@ -47,6 +83,19 @@
         <div class="form-group">
           <label for="project-name">Project name</label>
           <input type="text" class="form-control" id="project-name">
+        </div>
+        <div class="form-group">
+          <label for="project-reference-type">GIT Reference Type</label>
+          <input type="text" class="form-control" id="project-reference-type" list="reference-type-list" autofocus>
+          <datalist id="reference-type-list">
+            <option>Branch</option>
+            <option>SHA</option>
+            <option>Tag</option>
+          </datalist>
+        </div>
+        <div class="form-group">
+          <label for="project-reference">GIT Reference</label>
+          <input type="text" class="form-control" id="project-reference" autofocus>
         </div>
         <div class="form-group">
           <input type="submit" class="btn btn-default" value="Add project">

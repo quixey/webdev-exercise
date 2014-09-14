@@ -1,3 +1,30 @@
 .main-content {
     padding-top: 60px; /* make room for the fixed header */
 }
+
+/*Base to compare selector*/
+#project-base-line{
+  width: 300px;
+}
+
+.form-group-1{
+  display: inline-block;
+}
+
+/*Main form*/
+.red{
+  color: red;
+}
+
+.green{
+  color: green;
+}
+
+/*Base checker*/
+#update{
+  float: right;
+}
+
+.base-update{
+  display: inline-block;
+}
