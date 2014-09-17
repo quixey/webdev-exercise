@@ -68,14 +68,14 @@ $(function(){
 
     var showThumbStatus = function(projectIndex, returnData) {
         if (returnData.behind_by === 0) {
-            $('#project-list i.status').eq(projectIndex).addClass('fa-thumbs-up green');
+            View.$statuses.eq(projectIndex).addClass(View.faPass);
         } else {
-            $('#project-list i.status').eq(projectIndex).addClass('fa-thumbs-down red');
+            View.$statuses.eq(projectIndex).addClass(View.faFail);
         }
     };
 
     var showFailedStatus = function(projectIndex, returnData) {
-        $('#project-list i.status').eq(projectIndex).addClass('fa-exclamation-triangle red').text(' invalid data');
+        View.$statuses.eq(projectIndex).addClass(View.faInvalid).text(View.textInvalid);
     };
 
     var checkAndShowProjectStatus = function(projectIndex) {
@@ -91,5 +91,10 @@ $(function(){
         }
     };
 
-    $(document).ready(checkAndShowAllProjectStatuses);
+    var runApp = function() {
+        checkAndShowAllProjectStatuses();
+        View.assignStatusArea($('#project-list i.status'));
+    };
+
+    $(document).ready(runApp);
 });
