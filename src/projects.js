@@ -66,19 +66,23 @@ $(function(){
         return 'https://api.github.com/repos/' + project.ghUsername + '/' + project.repoName + '/compare/master...' + project.branchOrSha;
     };
 
+    var showThumbStatus = function(projectIndex, returnData) {
+        if (returnData.behind_by === 0) {
+            $('#project-list i.status').eq(projectIndex).addClass('fa-thumbs-up green');
+        } else {
+            $('#project-list i.status').eq(projectIndex).addClass('fa-thumbs-down red');
+        }
+    };
+
+    var showFailedStatus = function(projectIndex, returnData) {
+        $('#project-list i.status').eq(projectIndex).addClass('fa-exclamation-triangle red').text(' invalid data');
+    };
+
     var checkAndShowProjectStatus = function(projectIndex) {
         $.ajax({
             url: createQueryURL(CURRENT_PROJECTS[projectIndex]),
             type: 'GET'
-        }).success(function(returnData) {
-            if (returnData.behind_by === 0) {
-                $('#project-list i.status').eq(projectIndex).addClass('fa-thumbs-up green');
-            } else {
-                $('#project-list i.status').eq(projectIndex).addClass('fa-thumbs-down red');
-            }
-        }).error(function(returnData) {
-            $('#project-list i.status').eq(projectIndex).addClass('fa-exclamation-triangle red').text(' invalid data');
-        });
+        }).success(showThumbStatus.bind(this, projectIndex)).error(showFailedStatus.bind(this, projectIndex));
     };
 
     var checkAndShowAllProjectStatuses = function() {
