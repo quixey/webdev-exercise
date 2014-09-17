@@ -40,14 +40,9 @@
       <form id="add-project-form">
         <div class="form-group">
           <label for="github-username">GitHub Username</label>
-          <input type="text" class="form-control" id="github-name">
+          <input type="text" class="form-control" id="github-name" autofocus>
           <label for="repo-name">Repo Name</label>
-          <input type="text" class="form-control" id="repo-name" list="type-list" autofocus>
-          <datalist id="type-list">
-            <option>Testing</option>
-            <option>Training</option>
-            <option>Analysis</option>
-          </datalist>
+          <input type="text" class="form-control" id="repo-name">
         </div>
         <div class="form-group">
           <label for="branch-sha">Branchname OR Commit Sha</label>
