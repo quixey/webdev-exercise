@@ -65,18 +65,27 @@ $(function(){
         return 'https://api.github.com/repos/' + project.ghUsername + '/' + project.repoName + '/compare/master...' + project.branchOrSha;
     };
 
-    var currentIndex = 0;
+    var checkAndShowProjectStatus = function(projectIndex) {
 
-    $.ajax({
-        url: createQueryURL(CURRENT_PROJECTS[currentIndex]),
-        type: 'GET'
-    }).success(function(returnData) {
-        if (returnData.behind_by === 0) {
-            $('#project-list i.status').eq(currentIndex).addClass('fa-thumbs-up green');
-        } else {
-            $('#project-list i.status').eq(currentIndex).addClass('fa-thumbs-down red');
+        $.ajax({
+            url: createQueryURL(CURRENT_PROJECTS[projectIndex]),
+            type: 'GET'
+        }).success(function(returnData) {
+            if (returnData.behind_by === 0) {
+                $('#project-list i.status').eq(projectIndex).addClass('fa-thumbs-up green');
+            } else {
+                $('#project-list i.status').eq(projectIndex).addClass('fa-thumbs-down red');
+            }
+        }).error(function(returnData) {
+            $('#project-list i.status').eq(projectIndex).addClass('fa-exclamation-triangle red').text(' invalid data');
+        });
+    };
+
+    var checkAndShowAllProjectStatuses = function() {
+        for (var i = 0; i < CURRENT_PROJECTS.length; i++) {
+            checkAndShowProjectStatus(i);
         }
-    }).error(function(returnData) {
-        $('#project-list i.status').eq(currentIndex).addClass('fa-exclamation-triangle red').text(' invalid data');
-    });
+    };
+
+    $(document).ready(checkAndShowAllProjectStatuses);
 });
