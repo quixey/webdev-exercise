@@ -24,7 +24,7 @@ $(function(){
                 $("<td>").text(pj.ghUsername),
                 $("<td>").text(pj.repoName),
                 $("<td>").text(pj.branchOrSha),
-                $("<td><span class='status'></span></td>")
+                $("<td><i class='status fa'></i></td>")
             );
         }));
     };
@@ -64,14 +64,20 @@ $(function(){
         return 'https://api.github.com/repos/' + project.ghUsername + '/' + project.repoName + '/compare/master...' + project.branchOrSha;
     };
 
+    var currentIndex = 0;
+
     $.ajax({
-        url: createQueryURL(CURRENT_PROJECTS[0]),
+        url: createQueryURL(CURRENT_PROJECTS[currentIndex]),
         type: 'GET'
     }).success(function(returnData) {
-        console.log("WAS SUCCESSFUL");
-        console.log(returnData);
+        if (returnData.behind_by === 0) {
+            $('#project-list i.status').eq(currentIndex).addClass('fa-thumbs-up green');
+        } else {
+            $('#project-list i.status').eq(currentIndex).addClass('fa-thumbs-down red');
+        }
     }).error(function(returnData) {
         console.log("FAILED!");
         console.log(returnData);
+        // make row red to emphasize that info is incorrect
     });
 });
