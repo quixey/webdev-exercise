@@ -32,14 +32,15 @@ $(function(){
     var createProject = function($form) {
         return new Project(
             MAX_ID + 1,
+            $form.find("#github-name").val(),
             $form.find("#repo-name").val(),
-            $form.find("#branch-sha").val(),
-            new Date()
+            $form.find("#branch-sha").val()
         );
     };
 
     // Clears the data in the form so that it's easy to enter a new project.
     var resetForm = function($form) {
+        $form.find("#github-name").val("");
         $form.find("#repo-name").val("");
         $form.find("#branch-sha").val("");
         $form.find("input:first").focus();
