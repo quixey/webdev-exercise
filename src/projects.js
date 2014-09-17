@@ -9,7 +9,8 @@ function Project(id, ghUsername, repoName, branchOrSha) {
 // (Feel free to imagine this came from a database somewhere on page load.)
 var CURRENT_PROJECTS = [
     new Project(0, "cpkenn09y", "webdev-exercise", "current-with-master"),
-    new Project(1, "quixey", "webdev-exercise", "outdated-branch-2")
+    new Project(1, "quixey", "webdev-exercise", "outdated-branch-2"),
+    new Project(2, "ztztdtsdf", "asfagag34234", "rw2323tfd")
 ];
 
 // The current maximum ID, so we know how to allocate an ID for a new project.
@@ -76,8 +77,6 @@ $(function(){
             $('#project-list i.status').eq(currentIndex).addClass('fa-thumbs-down red');
         }
     }).error(function(returnData) {
-        console.log("FAILED!");
-        console.log(returnData);
-        // make row red to emphasize that info is incorrect
+        $('#project-list i.status').eq(currentIndex).addClass('fa-exclamation-triangle red').text(' invalid data');
     });
 });
