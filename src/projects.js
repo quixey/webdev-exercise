@@ -8,7 +8,7 @@ function Project(id, ghUsername, repoName, branchOrSha) {
 // The list of all projects currently in the system.
 // (Feel free to imagine this came from a database somewhere on page load.)
 var CURRENT_PROJECTS = [
-    new Project(0, "quixey", "webdev-exercise", "up-to-date-branch-1"),
+    new Project(0, "cpkenn09y", "webdev-exercise", "current-with-master"),
     new Project(1, "quixey", "webdev-exercise", "outdated-branch-2")
 ];
 
@@ -57,5 +57,16 @@ $(function(){
         loadProjects($projectTable, [pj]);
         resetForm($form);
         e.preventDefault();
+    });
+
+    $.ajax({
+        url: 'https://api.github.com/repos/cpkenn09y/webdev-exercise/compare/master...current-with-master',
+        type: 'GET'
+    }).success(function(returnData) {
+        console.log("WAS SUCCESSFUL");
+        console.log(returnData);
+    }).error(function(returnData) {
+        console.log("FAILED!");
+        console.log(returnData);
     });
 });
