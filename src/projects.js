@@ -1,8 +1,8 @@
-function Project(id, type, name, lastActivity) {
+function Project(id, ghUsername, repoName, branchOrSha) {
     this.id = id;
-    this.type = type;
-    this.name = name;
-    this.lastActivity = lastActivity;
+    this.ghUsername = ghUsername;
+    this.repoName = repoName;
+    this.branchOrSha = branchOrSha;
 }
 
 // The list of all projects currently in the system.
@@ -21,9 +21,9 @@ $(function(){
         $.fn.append.apply($container, $.map(projects, function(pj) {
             return $("<tr>").append(
                 $("<td>").text(pj.id),
-                $("<td>").text(pj.type),
-                $("<td>").text(pj.name),
-                $("<td>").text(pj.lastActivity.toString())
+                $("<td>").text(pj.ghUsername),
+                $("<td>").text(pj.repoName),
+                $("<td>").text(pj.branchOrSha)
             );
         }));
     };
