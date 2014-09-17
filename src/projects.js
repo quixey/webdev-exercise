@@ -23,7 +23,8 @@ $(function(){
                 $("<td>").text(pj.id),
                 $("<td>").text(pj.ghUsername),
                 $("<td>").text(pj.repoName),
-                $("<td>").text(pj.branchOrSha)
+                $("<td>").text(pj.branchOrSha),
+                $("<td><span class='status'></span></td>")
             );
         }));
     };
