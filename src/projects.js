@@ -59,8 +59,12 @@ $(function(){
         e.preventDefault();
     });
 
+    var createQueryURL = function(project) {
+        return 'https://api.github.com/repos/' + project.ghUsername + '/' + project.repoName + '/compare/master...' + project.branchOrSha;
+    };
+
     $.ajax({
-        url: 'https://api.github.com/repos/cpkenn09y/webdev-exercise/compare/master...current-with-master',
+        url: createQueryURL(CURRENT_PROJECTS[0]),
         type: 'GET'
     }).success(function(returnData) {
         console.log("WAS SUCCESSFUL");
