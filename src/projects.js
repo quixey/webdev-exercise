@@ -58,6 +58,7 @@ $(function(){
         CURRENT_PROJECTS.push(pj);
         loadProjects($projectTable, [pj]);
         resetForm($form);
+        checkAndShowAllProjectStatuses();
         e.preventDefault();
     });
 
@@ -66,7 +67,6 @@ $(function(){
     };
 
     var checkAndShowProjectStatus = function(projectIndex) {
-
         $.ajax({
             url: createQueryURL(CURRENT_PROJECTS[projectIndex]),
             type: 'GET'
