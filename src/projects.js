@@ -71,6 +71,7 @@ $(function(){
     };
 
     var checkAndShowProjectStatus = function(projectIndex) {
+        View.updateStatusArea();
         $.ajax({
             url: createQueryURL(CURRENT_PROJECTS[projectIndex]),
             type: 'GET'
@@ -85,7 +86,7 @@ $(function(){
 
     var runApp = function() {
         checkAndShowAllProjectStatuses();
-        View.assignStatusArea($('#project-list i.status'));
+        View.updateStatusArea();
     };
 
     $(document).ready(runApp);

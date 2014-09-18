@@ -4,8 +4,8 @@ var View = {
   faInvalid : 'fa-exclamation-triangle red',
   textInvalid : ' invalid data',
   $statuses : null,
-  assignStatusArea : function($statusArea) {
-    this.$statuses = $statusArea;
+  updateStatusArea : function() {
+    this.$statuses = $('#project-list i.status');
   },
   resetForm : function($form) {
     $form.find("#github-name").val("");
