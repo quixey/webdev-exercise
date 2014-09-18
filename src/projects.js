@@ -40,27 +40,19 @@ $(function(){
         );
     };
 
-    // Clears the data in the form so that it's easy to enter a new project.
-    var resetForm = function($form) {
-        $form.find("#github-name").val("");
-        $form.find("#repo-name").val("");
-        $form.find("#branch-sha").val("");
-        $form.find("input:first").focus();
-    };
-
     var $projectTable = $("#project-list>tbody");
     loadProjects($projectTable, CURRENT_PROJECTS);
 
-    $("#add-project-form").submit(function(e) {
+    var createProjectAndCheckStatuses = function(e) {
         var $form = $(this);
         pj = createProject($form);
         MAX_ID = pj.id;
         CURRENT_PROJECTS.push(pj);
         loadProjects($projectTable, [pj]);
-        resetForm($form);
+        View.resetForm($form);
         checkAndShowAllProjectStatuses();
         e.preventDefault();
-    });
+    };
 
     var createQueryURL = function(project) {
         return 'https://api.github.com/repos/' + project.ghUsername + '/' + project.repoName + '/compare/master...' + project.branchOrSha;
@@ -97,4 +89,5 @@ $(function(){
     };
 
     $(document).ready(runApp);
+    $(document).on("submit", "#add-project-form", createProjectAndCheckStatuses);
 });
