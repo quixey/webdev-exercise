@@ -1,5 +1,6 @@
 var View = (function() {
   var statusArea = '#project-list i.status';
+  var projectTable = '#project-list>tbody';
 
   return {
     faPass : 'fa-thumbs-up green',
@@ -7,6 +8,7 @@ var View = (function() {
     faInvalid : 'fa-exclamation-triangle red',
     textInvalid : ' invalid data',
     $statuses : null,
+    $projectTable : $(projectTable),
     updateStatusArea : function() {
       this.$statuses = $(statusArea);
     },
@@ -15,6 +17,17 @@ var View = (function() {
       $form.find("#repo-name").val("");
       $form.find("#branch-sha").val("");
       $form.find("input:first").focus();
+    },
+    loadProjects : function(projects) {
+      $.fn.append.apply(this.$projectTable, $.map(projects, function(pj) {
+        return $("<tr>").append(
+          $("<td>").text(pj.id),
+          $("<td>").text(pj.ghUsername),
+          $("<td>").text(pj.repoName),
+          $("<td>").text(pj.branchOrSha),
+          $("<td><i class='status fa'></i></td>")
+        );
+      }));
     }
   };
 })();

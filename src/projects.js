@@ -18,17 +18,6 @@ var CURRENT_PROJECTS = [
 var MAX_ID = Math.max.apply(null, $.map(CURRENT_PROJECTS, function(pj) { return pj.id; }));
 
 $(function(){
-    var loadProjects = function($container, projects) {
-        $.fn.append.apply($container, $.map(projects, function(pj) {
-            return $("<tr>").append(
-                $("<td>").text(pj.id),
-                $("<td>").text(pj.ghUsername),
-                $("<td>").text(pj.repoName),
-                $("<td>").text(pj.branchOrSha),
-                $("<td><i class='status fa'></i></td>")
-            );
-        }));
-    };
 
     // Creates a new project based on the user input in the form.
     var createProject = function($form) {
@@ -40,15 +29,12 @@ $(function(){
         );
     };
 
-    var $projectTable = $("#project-list>tbody");
-    loadProjects($projectTable, CURRENT_PROJECTS);
-
     var createProjectAndCheckStatuses = function(e) {
         var $form = $(this);
         pj = createProject($form);
         MAX_ID = pj.id;
         CURRENT_PROJECTS.push(pj);
-        loadProjects($projectTable, [pj]);
+        View.loadProjects([pj]);
         View.resetForm($form);
         checkAndShowAllProjectStatuses();
         e.preventDefault();
@@ -71,7 +57,6 @@ $(function(){
     };
 
     var checkAndShowProjectStatus = function(projectIndex) {
-        View.updateStatusArea();
         $.ajax({
             url: createQueryURL(CURRENT_PROJECTS[projectIndex]),
             type: 'GET'
@@ -79,14 +64,15 @@ $(function(){
     };
 
     var checkAndShowAllProjectStatuses = function() {
+        View.updateStatusArea();
         for (var i = 0; i < CURRENT_PROJECTS.length; i++) {
             checkAndShowProjectStatus(i);
         }
     };
 
     var runApp = function() {
+        View.loadProjects(CURRENT_PROJECTS);
         checkAndShowAllProjectStatuses();
-        View.updateStatusArea();
     };
 
     $(document).ready(runApp);
