@@ -1,3 +1,24 @@
 .main-content {
     padding-top: 60px; /* make room for the fixed header */
 }
+
+.status {
+    border-radius: 5px;
+    display: inline-block;
+    height: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
+    color: white;
+}
+
+.updated{
+  background-color: MediumSeaGreen;
+}
+
+.outdated{
+  background-color: Salmon;
+}
+
+.pending{
+  background-color: Gray;
+}
