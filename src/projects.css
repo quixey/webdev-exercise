@@ -1,3 +1,9 @@
 .main-content {
     padding-top: 60px; /* make room for the fixed header */
 }
+
+tbody>tr:hover {
+    background-color: grey;
+    cursor: -webkit-grab;
+    font-size: 18px;
+}
