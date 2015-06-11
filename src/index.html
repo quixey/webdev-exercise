@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Project overview</title>
+    <title>Quixey Current Projects Overview</title>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+    <!-- Bootstrap  -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+
+    <!-- Custom Styles -->
     <link rel="stylesheet" href="projects.css">
   </head>
   <body>
@@ -12,49 +15,73 @@
       <div class="container">
         <div class="collapse navbar-collapse navbar-standalone">
           <nav class="nav navbar-nav">
-            <li class="active"><a href="#">Project tool</a></li>
+            <li class="active"><a href="#">Quixey Project Tool</a></li>
           </nav>
         </div>
       </div>
     </div>
 
     <div class="container main-content">
-      <h2>All active projects</h2>
+      <h2>All Active Projects</h2>
       <table id="project-list" class="table">
         <thead>
           <tr>
             <th>ID</th>
             <th>Type</th>
             <th>Name</th>
+            <th>Branch</th>
             <th>Last activity</th>
+            <th>Status</th>
           </tr>
         </thead>
         <tbody>
         </tbody>
       </table>
       <hr>
-      <h2>Add new project</h2>
-      <form id="add-project-form">
+
+      <form id="add-project-form" class="form-horizontal">
+        <legend>Add New Project</legend>
+
+        <!-- Text inputs -->
         <div class="form-group">
-          <label for="project-type">Project type</label>
-          <input type="text" class="form-control" id="project-type" list="type-list" autofocus>
-          <datalist id="type-list">
-            <option>Testing</option>
-            <option>Training</option>
-            <option>Analysis</option>
-          </datalist>
+          <div class="col-md-6">
+            <label class="form-label" for="project-name">Project Name</label>
+            <div class="controls">
+              <input id="project-name" name="project-name" placeholder="Enter a Project Name" class="form-control" type="text">
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label" for="project-type">Project Type</label>
+            <div class="controls">
+              <input id="project-type" name="project-type" placeholder="Select the Project Type" class="form-control" type="text" list="type-list">
+              <datalist id="type-list">
+                <option>Testing</option>
+                <option>Training</option>
+                <option>Analysis</option>
+              </datalist>
+            </div>
+          </div>
         </div>
+
         <div class="form-group">
-          <label for="project-name">Project name</label>
-          <input type="text" class="form-control" id="project-name">
+          <div class="col-md-12">
+            <label class="form-label" for="project-branch">Project Branch</label>
+            <div class="controls">
+              <input id="project-branch" name="project-branch" placeholder="Select Project Branch" class="form-control" type="text" list="branches-list">
+              <datalist id="branches-list"></datalist>
+            </div>
+          </div>
         </div>
+
         <div class="form-group">
           <input type="submit" class="btn btn-default" value="Add project">
         </div>
+
       </form>
     </div>
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <script src="projects.js"></script>
   </body>
 </html>
