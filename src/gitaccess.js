@@ -1,3 +1,8 @@
+var request = new XMLHttpRequest();
+request.open('get', 'https://api.github.com/users/andrewdonato')
+request.send()
+
+
 $(document).ready(function() {
   // This is called after the document has loaded in its entirety
   // This guarantees that any elements we bind to will exist on the page
