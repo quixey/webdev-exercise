@@ -96,3 +96,10 @@ var makeGitRequest = function(){
 //   });
 // };
 
+
+
+create a column for branch name and another column for status (is ahead or up to date)
+
+add project field
+add another dropdown for project branch
+make a request from local to github client side
