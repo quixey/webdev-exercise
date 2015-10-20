@@ -27,6 +27,7 @@
             <th>Type</th>
             <th>Name</th>
             <th>Last activity</th>
+            <th>Commits ahead of master branch</th>
           </tr>
         </thead>
         <tbody>
@@ -47,6 +48,18 @@
         <div class="form-group">
           <label for="project-name">Project name</label>
           <input type="text" class="form-control" id="project-name">
+        </div>
+        <div class="form-group">
+          <label for="github-username">Github Owner's Username</label>
+          <input type="text" class="form-control" id="github-username">
+        </div>
+        <div class="form-group">
+          <label for="github-project">Github Project Name</label>
+          <input type="text" class="form-control" id="github-project">
+        </div>
+        <div class="form-group">
+          <label for="github-new-branch">Enter a name of the branch you want to track against the master branch</label>
+          <input type="text" class="form-control" id="github-new-branch">
         </div>
         <div class="form-group">
           <input type="submit" class="btn btn-default" value="Add project">
