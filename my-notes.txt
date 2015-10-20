@@ -1,0 +1,34 @@
+
+
+##  These are the user stories
+
+
+    1. Engineer Alice makes branch "search-experiment"
+    2. Alice sets up a project for "search-experiment" using this tool
+    3. Engineer Bob makes further changes in master
+    4. Testers start working on the "search-experiment" project
+
+        ##  why are the testers looking at the search-experiment project in the first place rather than the master branch
+
+
+## the problem
+
+
+
+
+##  what I need to do:
+
+I need to edit the tool that I have been provided, in order to:
+
+  [front-end]  be able to specify the branch in a particular project
+
+  [back-end] use the github api to compare a project with master
+
+  [front-end] indicate if a project is up to date or not
+
+  [the gist] make sure that the branch is up to date with master before testers work on it.
+
+
+
+Check the API to see if the branch is up to date with master
+If not up to date, then give warning or disallow testers from working on the branch

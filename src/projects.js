@@ -1,3 +1,6 @@
+
+
+
 function Project(id, type, name, lastActivity) {
     this.id = id;
     this.type = type;
@@ -58,3 +61,10 @@ $(function(){
         e.preventDefault();
     });
 });
+
+
+
+/////////////////////////////////////////////////////////////////
+
+//remember to npm install
+
