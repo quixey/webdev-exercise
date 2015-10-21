@@ -1,3 +1,40 @@
+$(document).ready(function() {
+  getBranches();
+});
+
+
+var getBranches = function(){
+  // https://api.github.com/repos/andrewdonato/webdev-exercise/branches
+  // var repos = $(".gitRepos").loadRepositories(andrewdonato)
+  // why aren't my changes sticking?
+
+  var request = $.ajax({
+    url: "https://api.github.com/repos/andrewdonato/webdev-exercise/branches",
+    type: "get"
+
+  })
+  request.done(function(serverData){
+    var branches=serverData;
+    console.log(branches[0].commit)
+  })
+  request.fail(function(serverData){
+    console.log(serverData);
+    console.log('server request failed');
+
+  })
+
+};
+
+
+
+
+
+
+
+
+
+
+
 function Project(id, type, name, lastActivity) {
     this.id = id;
     this.type = type;
@@ -17,6 +54,7 @@ var CURRENT_PROJECTS = [
 var MAX_ID = Math.max.apply(null, $.map(CURRENT_PROJECTS, function(pj) { return pj.id; }));
 
 $(function(){
+
     var loadProjects = function($container, projects) {
         $.fn.append.apply($container, $.map(projects, function(pj) {
             return $("<tr>").append(
