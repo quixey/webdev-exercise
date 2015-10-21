@@ -3,6 +3,13 @@ $(document).ready(function() {
 });
 
 
+var compareToMaster = function(){
+
+    // url: "https://api.github.com/repos/andrewdonato/webdev-exercise/compare/master...gitBranches",
+
+}
+
+
 var getBranches = function(){
   // https://api.github.com/repos/andrewdonato/webdev-exercise/branches
   // var repos = $(".gitRepos").loadRepositories(andrewdonato)
@@ -14,15 +21,13 @@ var getBranches = function(){
 
   })
   request.done(function(serverData){
-    var branches=serverData;
-    console.log(branches[0].commit)
+    branches = serverData;
+    console.log(branches[2])
   })
   request.fail(function(serverData){
     console.log(serverData);
     console.log('server request failed');
-
   })
-
 };
 
 
@@ -35,11 +40,15 @@ var getBranches = function(){
 
 
 
-function Project(id, type, name, lastActivity) {
+
+
+function Project(id, type, name, lastActivity, branch, upToDate) {
     this.id = id;
     this.type = type;
     this.name = name;
     this.lastActivity = lastActivity;
+    this.branch = branch;
+    this.name = name;
 }
 
 // The list of all projects currently in the system.
@@ -61,7 +70,8 @@ $(function(){
                 $("<td>").text(pj.id),
                 $("<td>").text(pj.type),
                 $("<td>").text(pj.name),
-                $("<td>").text(pj.lastActivity.toString())
+                $("<td>").text(pj.lastActivity.toString()),
+                $("<td>").text(pj.branch)
             );
         }));
     };
@@ -72,7 +82,9 @@ $(function(){
             MAX_ID + 1,
             $form.find("#project-type").val(),
             $form.find("#project-name").val(),
-            new Date()
+            new Date(),
+            $form.find("#project-branch").val()
+            // this is where I would put whether or not the project is up to date with master
         );
     };
 
@@ -80,6 +92,7 @@ $(function(){
     var resetForm = function($form) {
         $form.find("#project-type").val("");
         $form.find("#project-name").val("");
+        $form.find("#project-branch").val("");
         $form.find("input:first").focus();
     };
 
