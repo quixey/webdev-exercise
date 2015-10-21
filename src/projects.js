@@ -6,6 +6,7 @@ $(document).ready(function() {
 var getBranches = function(){
   // https://api.github.com/repos/andrewdonato/webdev-exercise/branches
   // var repos = $(".gitRepos").loadRepositories(andrewdonato)
+  // why aren't my changes sticking?
 
   var request = $.ajax({
     url: "https://api.github.com/repos/andrewdonato/webdev-exercise/branches",
