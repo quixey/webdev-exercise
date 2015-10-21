@@ -26,13 +26,18 @@ var getBranches = function(){
 
 
 //// Warning!!  This makes many queries at once. Watch your rate limit ~ 60/hr
+var allBranchShows = [];
 var viewEachBranch = function(branches){
 
-  var allBranchShows = []
 
   for (var i = 0; i < branches.length; i++){
 
     var branchName = branches[i].name
+
+    if (branchName === "master"){
+      indexOfMaster = i
+    };
+
 
     var request = $.ajax({
       url: "https://api.github.com/repos/andrewdonato/webdev-exercise/branches/" + branchName,
@@ -41,46 +46,37 @@ var viewEachBranch = function(branches){
     request.done(function(serverData){
       var branchShow = serverData;
 
-      console.log(branchShow)  //// this is my most recent point
-      compareBranchDatesToMaster
-      // allBranchShows.push(branchShow)
+      allBranchShows.push(branchShow)
+      console.log(allBranchShows)
+      // console.log(branchShow)  //// this is my most recent point
     })
     request.fail(function(serverData){
       console.log(serverData);
       console.log('server request failed');
     })
   };
+  debugger
+  compareBranchDatesToMaster(allBranchShows, indexOfMaster)
 
-  // compareBranchShows(allBranchShows)
 };
 
-var compareBranchDatesToMaster = function(){
-  var branch = this
-  var date = Branchshow[i].commit[0].commit.author.date
-  if (date < masterDate){
-    upToDateStatus = false
-  };
-  else{
-    upToDateStatus = true
+var compareBranchDatesToMaster = function(allBranchShows, indexOfMaster){
+  debugger
+  dateOfMaster = allBranchShows[indexOfMaster].commit.commit.author.date
+
+  for (var i = 0; i < allBranchShows.length; i++){
+    var date = allBranchShows[i].commit.commit.author.date
+
+    if (date < dateOfMaster){
+      allBranchShows.upToDateStatus = false
+    }
+    else {
+      allBranchShows.upToDateStatus = true
+    };
+    console.log(allBranchShows.upToDateStatus)
+  debugger
   };
 };
-
-// var compareBranchShows = function(allBranchShows) {
-
-//   // pretend this is working right now
-//   // console.log(allBranchShows.length)
-
-//   allBranchDates = []
-
-//   for (var i = 0; i < allBranchShows.length; i++){
-
-//   }
-
-
-//   // find master and what it's date is
-//   // compare the dates of each branch to masters date
-// }
-
 
 
 
