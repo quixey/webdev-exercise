@@ -27,14 +27,38 @@
             <th>Type</th>
             <th>Name</th>
             <th>Last activity</th>
+            <th>Branch</th>
+            <th>Up to Date</th>
           </tr>
         </thead>
         <tbody>
         </tbody>
       </table>
+
+      <div class='gitRepos'>
+
+      </div>
+
       <hr>
+
       <h2>Add new project</h2>
       <form id="add-project-form">
+
+        <div class="form-group">
+          <label for="project-branch">Project Branch</label>
+          <input type="text" class="form-control" id="project-branch" list="type-list" autofocus>
+          <datalist id="type-list">
+            <option>master</option>
+            <option>gitbranches</option>
+            <option>outdated-branch-1</option>
+            <option>outdated-branch-2</option>
+            <option>outdated-branch-3</option>
+            <option>baseline-branch</option>
+            <option>up-to-date-branch-1</option>
+            <option>up-to-date-branch-2</option>
+          </datalist>
+        </div>
+
         <div class="form-group">
           <label for="project-type">Project type</label>
           <input type="text" class="form-control" id="project-type" list="type-list" autofocus>
@@ -44,6 +68,7 @@
             <option>Analysis</option>
           </datalist>
         </div>
+
         <div class="form-group">
           <label for="project-name">Project name</label>
           <input type="text" class="form-control" id="project-name">
