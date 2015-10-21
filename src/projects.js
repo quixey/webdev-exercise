@@ -3,26 +3,20 @@ $(document).ready(function() {
 });
 
 
-var compareToMaster = function(){
-
-    // url: "https://api.github.com/repos/andrewdonato/webdev-exercise/compare/master...gitBranches",
-
-}
+// var compareToMaster = function(){
+//   // url: "https://api.github.com/repos/andrewdonato/webdev-exercise/compare/master...gitBranches",
+// }
 
 
 var getBranches = function(){
-  // https://api.github.com/repos/andrewdonato/webdev-exercise/branches
-  // var repos = $(".gitRepos").loadRepositories(andrewdonato)
-  // why aren't my changes sticking?
 
   var request = $.ajax({
     url: "https://api.github.com/repos/andrewdonato/webdev-exercise/branches",
     type: "get"
-
   })
   request.done(function(serverData){
-    branches = serverData;
-    console.log(branches[2])
+    var branches = serverData;
+    viewEachBranch(branches);
   })
   request.fail(function(serverData){
     console.log(serverData);
@@ -31,6 +25,38 @@ var getBranches = function(){
 };
 
 
+//// Warning!!  This makes many queries at once. Watch your rate limit ~ 60/hr
+var viewEachBranch = function(branches){
+
+  var allBranchShows = []
+
+  for (var i = 0; i < branches.length; i++){
+
+    var branchName = branches[i].name
+
+    var request = $.ajax({
+      url: "https://api.github.com/repos/andrewdonato/webdev-exercise/branches/" + branchName,
+      type: "get"
+    })
+    request.done(function(serverData){
+      var branchShow = serverData;
+      allBranchShows.push(branchShow)
+    })
+    request.fail(function(serverData){
+      console.log(serverData);
+      console.log('server request failed');
+    })
+  };
+
+  compareBranchShows(allBranchShows)
+};
+
+var compareBranchShows = function(allBranchShows) {
+  console.log(allBranchShows)
+
+  // find master and what it's date is
+  // compare the dates of each branch to masters date
+}
 
 
 
