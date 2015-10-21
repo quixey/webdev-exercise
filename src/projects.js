@@ -1,8 +1,54 @@
-function Project(id, type, name, lastActivity) {
+$(document).ready(function() {
+  getBranches();
+});
+
+
+var compareToMaster = function(){
+
+    // url: "https://api.github.com/repos/andrewdonato/webdev-exercise/compare/master...gitBranches",
+
+}
+
+
+var getBranches = function(){
+  // https://api.github.com/repos/andrewdonato/webdev-exercise/branches
+  // var repos = $(".gitRepos").loadRepositories(andrewdonato)
+  // why aren't my changes sticking?
+
+  var request = $.ajax({
+    url: "https://api.github.com/repos/andrewdonato/webdev-exercise/branches",
+    type: "get"
+
+  })
+  request.done(function(serverData){
+    branches = serverData;
+    console.log(branches[2])
+  })
+  request.fail(function(serverData){
+    console.log(serverData);
+    console.log('server request failed');
+  })
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+function Project(id, type, name, lastActivity, branch, upToDate) {
     this.id = id;
     this.type = type;
     this.name = name;
     this.lastActivity = lastActivity;
+    this.branch = branch;
+    this.name = name;
 }
 
 // The list of all projects currently in the system.
@@ -17,13 +63,15 @@ var CURRENT_PROJECTS = [
 var MAX_ID = Math.max.apply(null, $.map(CURRENT_PROJECTS, function(pj) { return pj.id; }));
 
 $(function(){
+
     var loadProjects = function($container, projects) {
         $.fn.append.apply($container, $.map(projects, function(pj) {
             return $("<tr>").append(
                 $("<td>").text(pj.id),
                 $("<td>").text(pj.type),
                 $("<td>").text(pj.name),
-                $("<td>").text(pj.lastActivity.toString())
+                $("<td>").text(pj.lastActivity.toString()),
+                $("<td>").text(pj.branch)
             );
         }));
     };
@@ -34,7 +82,9 @@ $(function(){
             MAX_ID + 1,
             $form.find("#project-type").val(),
             $form.find("#project-name").val(),
-            new Date()
+            new Date(),
+            $form.find("#project-branch").val()
+            // this is where I would put whether or not the project is up to date with master
         );
     };
 
@@ -42,6 +92,7 @@ $(function(){
     var resetForm = function($form) {
         $form.find("#project-type").val("");
         $form.find("#project-name").val("");
+        $form.find("#project-branch").val("");
         $form.find("input:first").focus();
     };
 
