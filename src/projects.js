@@ -2,12 +2,7 @@ $(document).ready(function() {
   getBranches();
 });
 
-
-// var compareToMaster = function(){
-//   // url: "https://api.github.com/repos/andrewdonato/webdev-exercise/compare/master...gitBranches",
-// }
-
-
+//// here I call an index of the branches (very minimal information)
 var getBranches = function(){
 
   var request = $.ajax({
@@ -26,10 +21,9 @@ var getBranches = function(){
 
 
 //// Warning!!  This makes many queries at once. Watch your rate limit ~ 60/hr
+//// Here I view the show of each branch and add it to an array of all of the branch shows
 var allBranchShows = [];
 var viewEachBranch = function(branches){
-
-
   for (var i = 0; i < branches.length; i++){
 
     var branchName = branches[i].name
@@ -38,47 +32,53 @@ var viewEachBranch = function(branches){
       indexOfMaster = i
     };
 
-
     var request = $.ajax({
       url: "https://api.github.com/repos/andrewdonato/webdev-exercise/branches/" + branchName,
       type: "get"
     })
     request.done(function(serverData){
       var branchShow = serverData;
-
       allBranchShows.push(branchShow)
-      console.log(allBranchShows)
-      // console.log(branchShow)  //// this is my most recent point
     })
     request.fail(function(serverData){
       console.log(serverData);
       console.log('server request failed');
     })
   };
-  debugger
   compareBranchDatesToMaster(allBranchShows, indexOfMaster)
-
 };
 
-var compareBranchDatesToMaster = function(allBranchShows, indexOfMaster){
-  debugger
-  dateOfMaster = allBranchShows[indexOfMaster].commit.commit.author.date
+//// here I compare the date of each branch with the date of master.
+//// I added "upToDateStatus" to each branch show object
+var compareBranchDatesToMaster = function(allBranches, indexOfMaster){
 
-  for (var i = 0; i < allBranchShows.length; i++){
-    var date = allBranchShows[i].commit.commit.author.date
+  dateOfMaster = allBranches[indexOfMaster].commit.commit.author.date
 
-    if (date < dateOfMaster){
-      allBranchShows.upToDateStatus = false
+  for (var i = 0; i < allBranches.length; i++){
+    var dateOfBranch
+
+    if (dateOfBranch < dateOfMaster){
+      allBranches[i].upToDateStatus = false
     }
     else {
-      allBranchShows.upToDateStatus = true
+      allBranches[i].upToDateStatus = true
     };
-    console.log(allBranchShows.upToDateStatus)
-  debugger
   };
+
+  updateDOM(allBranches)
 };
 
+//// here I update the branch name and whether or it "Up To Date"
+var updateDOM = function (allBranches) {
+  debugger
 
+  // I've run out of time.
+  // To finish, I would use jquery to determine the branch of each project.
+  // I would also use jqeury to populate the branch drop down menu
+  // I would then go to the parent row, and then append the "upToDateStatus" which would be either true or false.
+
+
+}
 
 
 
@@ -93,7 +93,6 @@ function Project(id, type, name, lastActivity, branch, upToDate) {
     this.name = name;
     this.lastActivity = lastActivity;
     this.branch = branch;
-    this.name = name;
 }
 
 // The list of all projects currently in the system.
