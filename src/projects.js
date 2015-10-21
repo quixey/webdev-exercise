@@ -40,7 +40,10 @@ var viewEachBranch = function(branches){
     })
     request.done(function(serverData){
       var branchShow = serverData;
-      allBranchShows.push(branchShow)
+
+      console.log(branchShow)  //// this is my most recent point
+      compareBranchDatesToMaster
+      // allBranchShows.push(branchShow)
     })
     request.fail(function(serverData){
       console.log(serverData);
@@ -48,15 +51,35 @@ var viewEachBranch = function(branches){
     })
   };
 
-  compareBranchShows(allBranchShows)
+  // compareBranchShows(allBranchShows)
 };
 
-var compareBranchShows = function(allBranchShows) {
-  console.log(allBranchShows)
+var compareBranchDatesToMaster = function(){
+  var branch = this
+  var date = Branchshow[i].commit[0].commit.author.date
+  if (date < masterDate){
+    upToDateStatus = false
+  };
+  else{
+    upToDateStatus = true
+  };
+};
 
-  // find master and what it's date is
-  // compare the dates of each branch to masters date
-}
+// var compareBranchShows = function(allBranchShows) {
+
+//   // pretend this is working right now
+//   // console.log(allBranchShows.length)
+
+//   allBranchDates = []
+
+//   for (var i = 0; i < allBranchShows.length; i++){
+
+//   }
+
+
+//   // find master and what it's date is
+//   // compare the dates of each branch to masters date
+// }
 
 
 
