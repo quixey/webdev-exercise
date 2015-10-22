@@ -20,6 +20,7 @@ var MAX_ID = Math.max.apply(null, $.map(CURRENT_PROJECTS, function(pj) { return 
 $(function(){
     var loadProjects = function($container, projects) {
         $.fn.append.apply($container, $.map(projects, function(pj) {
+            debugger
             return $("<tr>").append(
                 $("<td>").text(pj.id),
                 $("<td>").text(pj.type),
@@ -44,12 +45,23 @@ $(function(){
             return "Request to GitHub failed"
         });
     }
+
+
     // Creates a new project based on the user input in the form.
     var createProject = function($form) {
         var githubUsername = $form.find("#github-username").val();
         var githubProject = $form.find("#github-project").val();
         var githubBranch = $form.find("#github-new-branch").val();
-        var githubCompare = "https://api.github.com/repos/quixey/webdev-exercise/compare/master..." + githubBranch
+        var githubCompare = "https://api.github.com/repos/" + githubUsername + "/" + githubProject + "/compare/master..." + githubBranch
+        differences;
+        $.ajax({
+                method: 'GET',
+                url: githubCompare
+        }).done(function(response) {
+            differences = response['ahead_by'];
+        }).fail(function(response) {
+        });
+        console.log(differences);
         return new Project(
             MAX_ID + 1,
             $form.find("#project-type").val(),
