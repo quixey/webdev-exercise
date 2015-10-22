@@ -20,6 +20,7 @@
 
     <div class="container main-content">
       <h2>All active projects</h2>
+      <p id="result"></p>
       <table id="project-list" class="table">
         <thead>
           <tr>
@@ -27,6 +28,7 @@
             <th>Type</th>
             <th>Name</th>
             <th>Last activity</th>
+            <th>Commits behind of master branch</th>
           </tr>
         </thead>
         <tbody>
@@ -47,6 +49,10 @@
         <div class="form-group">
           <label for="project-name">Project name</label>
           <input type="text" class="form-control" id="project-name">
+        </div>
+        <div class="form-group">
+          <label for="github-new-branch">Enter a name to compare to master:</label>
+          <input type="text" class="form-control" id="github-new-branch">
         </div>
         <div class="form-group">
           <input type="submit" class="btn btn-default" value="Add project">

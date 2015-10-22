@@ -1,8 +1,9 @@
-function Project(id, type, name, lastActivity) {
+function Project(id, type, name, lastActivity, gitDiff) {
     this.id = id;
     this.type = type;
     this.name = name;
     this.lastActivity = lastActivity;
+    this.gitDiff = gitDiff;
 }
 
 // The list of all projects currently in the system.
@@ -19,22 +20,49 @@ var MAX_ID = Math.max.apply(null, $.map(CURRENT_PROJECTS, function(pj) { return 
 $(function(){
     var loadProjects = function($container, projects) {
         $.fn.append.apply($container, $.map(projects, function(pj) {
+            debugger
             return $("<tr>").append(
                 $("<td>").text(pj.id),
                 $("<td>").text(pj.type),
                 $("<td>").text(pj.name),
-                $("<td>").text(pj.lastActivity.toString())
+                $("<td>").text(pj.lastActivity.toString()),
+                $("<td id='git-diff"+ pj.id +"'>").text(pj.gitDiff)
             );
         }));
     };
 
+    var githubCall = function(githubCompare, MAX_ID) {
+        var behindBy;
+        console.log('function called')
+        var promise = $.ajax({
+                method: 'GET',
+                url: githubCompare,
+        }).done(function(response) {
+                behindBy = response['behind_by'];
+                $('#git-diff' + (MAX_ID+1) ).text(behindBy);
+                console.log(behindBy);
+                //return behindBy;
+        }).fail(function(response) {
+                    return "Request to GitHub failed"
+        });
+        return behindBy;
+    }
+
+
     // Creates a new project based on the user input in the form.
     var createProject = function($form) {
+        var differences = 99;
+        var githubBranch = $form.find("#github-new-branch").val();
+        var githubCompare = "https://api.github.com/repos/quixey/webdev-exercise/compare/master..." + githubBranch;
+        var diffs = githubCall(githubCompare, MAX_ID);
+        diffs
+        console.log(diffs);
         return new Project(
             MAX_ID + 1,
             $form.find("#project-type").val(),
             $form.find("#project-name").val(),
-            new Date()
+            new Date(),
+            diffs
         );
     };
 
@@ -42,6 +70,7 @@ $(function(){
     var resetForm = function($form) {
         $form.find("#project-type").val("");
         $form.find("#project-name").val("");
+        $form.find("#github-new-branch").val("");
         $form.find("input:first").focus();
     };
 
