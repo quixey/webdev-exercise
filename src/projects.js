@@ -32,7 +32,6 @@ $(function(){
     };
 
     var githubCall = function(githubCompare) {
-
         var differences = 0;
         $.ajax({
                 method: 'GET',
@@ -49,25 +48,16 @@ $(function(){
 
     // Creates a new project based on the user input in the form.
     var createProject = function($form) {
-        var githubUsername = $form.find("#github-username").val();
-        var githubProject = $form.find("#github-project").val();
         var githubBranch = $form.find("#github-new-branch").val();
-        var githubCompare = "https://api.github.com/repos/" + githubUsername + "/" + githubProject + "/compare/master..." + githubBranch
-        differences;
-        $.ajax({
-                method: 'GET',
-                url: githubCompare
-        }).done(function(response) {
-            differences = response['ahead_by'];
-        }).fail(function(response) {
-        });
-        console.log(differences);
+        var githubCompare = "https://api.github.com/repos/quixey/webdev-exercise/compare/master..." + githubBranch;
+        var diffs = githubCall(githubCompare);
+        console.log(diffs);
         return new Project(
             MAX_ID + 1,
             $form.find("#project-type").val(),
             $form.find("#project-name").val(),
             new Date(),
-            githubCall(githubCompare)
+            diffs
         );
 
     };
