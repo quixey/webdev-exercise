@@ -26,31 +26,36 @@ $(function(){
                 $("<td>").text(pj.type),
                 $("<td>").text(pj.name),
                 $("<td>").text(pj.lastActivity.toString()),
-                $("<td>").text(pj.gitDiff)
+                $("<td id='git-diff"+ pj.id +"'>").text(pj.gitDiff)
             );
         }));
     };
 
-    var githubCall = function(githubCompare) {
-        var differences = 0;
-        $.ajax({
+    var githubCall = function(githubCompare, MAX_ID) {
+        var behindBy;
+        console.log('function called')
+        var promise = $.ajax({
                 method: 'GET',
-                url: githubCompare
+                url: githubCompare,
         }).done(function(response) {
-            differences = response['ahead_by'];
-            console.log(differences);
-            return differences;
+                behindBy = response['behind_by'];
+                $('#git-diff' + (MAX_ID+1) ).text(behindBy);
+                console.log(behindBy);
+                //return behindBy;
         }).fail(function(response) {
-            return "Request to GitHub failed"
+                    return "Request to GitHub failed"
         });
+        return behindBy;
     }
 
 
     // Creates a new project based on the user input in the form.
     var createProject = function($form) {
+        var differences = 99;
         var githubBranch = $form.find("#github-new-branch").val();
         var githubCompare = "https://api.github.com/repos/quixey/webdev-exercise/compare/master..." + githubBranch;
-        var diffs = githubCall(githubCompare);
+        var diffs = githubCall(githubCompare, MAX_ID);
+        diffs
         console.log(diffs);
         return new Project(
             MAX_ID + 1,
@@ -59,7 +64,6 @@ $(function(){
             new Date(),
             diffs
         );
-
     };
 
     // Clears the data in the form so that it's easy to enter a new project.
